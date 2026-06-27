@@ -5,7 +5,12 @@ project_name = "textSummarizer"
 
 list_of_files = [
     f"src/{project_name}/__init__.py",
-    f"src/{project_name}/logger/__init__.py"
+    f"src/{project_name}/logger/__init__.py",
+    "requirements.txt",
+    f"src/{project_name}/utils/__init__.py",
+    f"src/{project_name}/utils/common.py",
+    f"src/{project_name}/exception/__init__.py",
+    "setup.py"
 ]
 
 for filepath in list_of_files:
