@@ -10,7 +10,18 @@ list_of_files = [
     f"src/{project_name}/utils/__init__.py",
     f"src/{project_name}/utils/common.py",
     f"src/{project_name}/exception/__init__.py",
-    "setup.py"
+    "setup.py",
+    "config/config.yaml",
+    f"src/{project_name}/entity/__init__.py",
+    f"src/{project_name}/constants/__init__.py",
+    f"src/{project_name}/config/configuration.py",
+    f"src/{project_name}/config/__init__.py",
+    "research/01_data_ingestion.ipynb",
+    "params.yaml",
+    f"src/{project_name}/components/data_ingestion.py",
+    f"src/{project_name}/pipelines/stage_01_data_ingestion.py",
+    "main.py",
+    "research/02_data_validation.ipynb"
 ]
 
 for filepath in list_of_files:

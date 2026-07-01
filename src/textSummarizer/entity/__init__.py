@@ -1,0 +1,18 @@
+from dataclasses import dataclass
+from pathlib import Path
+
+@dataclass(frozen=True)
+class DataIngestionConfig:
+    root_dir        : Path
+    source_URL      : str
+    local_data_file : Path
+    unzip_dir       : Path
+
+@dataclass(Frozen=True)
+class DataValidationConfig:
+    root_dir           : Path
+    STATUS_FILE        : str
+    ALL_REQUIRED_FILES : list
+    data_path          : Path
+
+# A blueprint file. It defines the exact "shape" of settings each component receives — a labeled container with specific named slots, each with a type.
