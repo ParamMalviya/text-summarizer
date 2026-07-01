@@ -21,7 +21,9 @@ list_of_files = [
     f"src/{project_name}/components/data_ingestion.py",
     f"src/{project_name}/pipelines/stage_01_data_ingestion.py",
     "main.py",
-    "research/02_data_validation.ipynb"
+    "research/02_data_validation.ipynb",
+    f"src/{project_name}/components/data_validation.y",
+    f"src/{project_name}/pipelines/stage_02_data_validation.py"
 ]
 
 for filepath in list_of_files:

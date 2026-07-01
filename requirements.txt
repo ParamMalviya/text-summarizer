@@ -2,3 +2,5 @@ ensure
 pyYAML
 ipykernel
 pandas
+transformers[sentencepiece]
+datasets
