@@ -5,6 +5,7 @@ from textSummarizer import logger
 from textSummarizer.exception import CustomException
 from textSummarizer.pipelines.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from textSummarizer.pipelines.stage_02_data_validation import DataValidationTrainingPipeline
+from textSummarizer.pipelines.stage_03_data_transformation import DataTransformationTrainingPipeline
 
 
 stage_name = "Data Ingestion Stage"
@@ -28,6 +29,20 @@ try:
 
     data_validation = DataValidationTrainingPipeline()
     data_validation.main()
+
+    logging.info(f">>>>>> Stage {stage_name} completed <<<<<<\n\nx==========x")
+
+except Exception as e:
+    raise CustomException(e,sys)
+
+
+stage_name = "Data Transformation Stage"
+
+try:
+    logging.info(f">>>>>> Stage {stage_name} started <<<<<<")
+
+    data_transformation = DataTransformationTrainingPipeline()
+    data_transformation.main()
 
     logging.info(f">>>>>> Stage {stage_name} completed <<<<<<\n\nx==========x")
 

@@ -23,7 +23,10 @@ list_of_files = [
     "main.py",
     "research/02_data_validation.ipynb",
     f"src/{project_name}/components/data_validation.y",
-    f"src/{project_name}/pipelines/stage_02_data_validation.py"
+    f"src/{project_name}/pipelines/stage_02_data_validation.py",
+    "research/03_data_transformation.ipynb",
+    f"src/{project_name}/components/data_transformation.py",
+    f"src/{project_name}/pipelines/stage_03_data_transformation.py"
 ]
 
 for filepath in list_of_files:

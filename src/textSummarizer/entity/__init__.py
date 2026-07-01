@@ -15,4 +15,11 @@ class DataValidationConfig:
     ALL_REQUIRED_FILES : list
     data_path          : Path
 
+@dataclass
+class DataTransformationConfig:
+    root_dir       : Path
+    data_path      : Path
+    tokenizer_name : str
+    
+
 # A blueprint file. It defines the exact "shape" of settings each component receives — a labeled container with specific named slots, each with a type.
