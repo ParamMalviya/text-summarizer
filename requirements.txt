@@ -1,6 +1,9 @@
 ensure
-pyYAML
+PyYAML
 ipykernel
 pandas
-transformers[sentencepiece]
+transformers[sentencepiece]==4.47.0
 datasets
+accelerate
+# torch must be installed separately due to PyTorch packaging limitations:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121

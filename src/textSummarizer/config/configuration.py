@@ -1,4 +1,4 @@
-from textSummarizer.entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from textSummarizer.entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 from textSummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from textSummarizer.utils.common import read_yaml, create_directories
 
@@ -44,3 +44,20 @@ class ConfigurationManager:
 
         )   
         return data_transformation_config
+    
+
+    def get_data_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config['model_trainer']
+        params = self.params['TrainingArguments']
+        create_directories([config['root_dir']])
+        data_model_trainer_config = ModelTrainerConfig(
+            root_dir           = config['root_dir'],
+            data_path          = config['data_path'],
+            model_ckpt         = config['model_ckpt'],
+            num_train_epoch    = params['num_train_epochs'],
+            warmup_steps       = params['warmup_steps'],
+            batch_size         = params['batch_size'],
+            learning_rate      = params['learning_rate'],
+            weight_decay       = params['weight_decay']
+        )   
+        return data_model_trainer_config

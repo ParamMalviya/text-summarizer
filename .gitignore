@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+artifacts/
+logs/
+*.egg-info/
+__pycache__/
+.venv/

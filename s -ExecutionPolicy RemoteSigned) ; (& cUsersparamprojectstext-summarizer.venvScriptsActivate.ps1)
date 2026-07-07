@@ -1,0 +1,334 @@
+[33mcommit d04c99c1ee91f3cbae497ee476144b806bfc3a0d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Param Malviya <parammalviya40@gmail.com>
+Date:   Thu Jul 2 03:29:24 2026 +0530
+
+    Added Data Transformation
+
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/test/cache-0da838f1d4e09222.arrow b/artifacts/data_ingestion/samsum_dataset/test/cache-0da838f1d4e09222.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bca21da[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/test/cache-0da838f1d4e09222.arrow differ
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/test/cache-fe95e7e6e8318586.arrow b/artifacts/data_ingestion/samsum_dataset/test/cache-fe95e7e6e8318586.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ad8a76c[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/test/cache-fe95e7e6e8318586.arrow differ
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/train/cache-18b3727ad9ec024f.arrow b/artifacts/data_ingestion/samsum_dataset/train/cache-18b3727ad9ec024f.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ccea05c[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/train/cache-18b3727ad9ec024f.arrow differ
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/train/cache-a58609c57df637ae.arrow b/artifacts/data_ingestion/samsum_dataset/train/cache-a58609c57df637ae.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..20ba428[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/train/cache-a58609c57df637ae.arrow differ
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/validation/cache-1f6038d3e19c76ff.arrow b/artifacts/data_ingestion/samsum_dataset/validation/cache-1f6038d3e19c76ff.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..94df993[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/validation/cache-1f6038d3e19c76ff.arrow differ
+[1mdiff --git a/artifacts/data_ingestion/samsum_dataset/validation/cache-99ffacbb6f758705.arrow b/artifacts/data_ingestion/samsum_dataset/validation/cache-99ffacbb6f758705.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6f63523[m
+Binary files /dev/null and b/artifacts/data_ingestion/samsum_dataset/validation/cache-99ffacbb6f758705.arrow differ
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/dataset_dict.json b/artifacts/data_transformation/samsum_dataset/dataset_dict.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..052eaee[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/dataset_dict.json[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m{"splits": ["train", "test", "validation"]}[m
+\ No newline at end of file[m
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/test/data-00000-of-00001.arrow b/artifacts/data_transformation/samsum_dataset/test/data-00000-of-00001.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..19fde52[m
+Binary files /dev/null and b/artifacts/data_transformation/samsum_dataset/test/data-00000-of-00001.arrow differ
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/test/dataset_info.json b/artifacts/data_transformation/samsum_dataset/test/dataset_info.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..73067f7[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/test/dataset_info.json[m
+[36m@@ -0,0 +1,78 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "builder_name": "samsum",[m
+[32m+[m[32m  "citation": "\n@article{gliwa2019samsum,\n  title={SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization},\n  author={Gliwa, Bogdan and Mochol, Iwona and Biesek, Maciej and Wawer, Aleksander},\n  journal={arXiv preprint arXiv:1911.12237},\n  year={2019}\n}\n",[m
+[32m+[m[32m  "config_name": "samsum",[m
+[32m+[m[32m  "dataset_size": 10530016,[m
+[32m+[m[32m  "description": "\nSAMSum Corpus contains over 16k chat dialogues with manually annotated\nsummaries.\nThere are two features:\n  - dialogue: text of dialogue.\n  - summary: human written summary of the dialogue.\n  - id: id of a example.\n",[m
+[32m+[m[32m  "download_checksums": {[m
+[32m+[m[32m    "https://huggingface.co/datasets/samsum/resolve/main/data/corpus.7z": {[m
+[32m+[m[32m      "num_bytes": 2944100,[m
+[32m+[m[32m      "checksum": null[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "download_size": 2944100,[m
+[32m+[m[32m  "features": {[m
+[32m+[m[32m    "id": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "dialogue": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "summary": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "input_ids": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int32",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "attention_mask": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int8",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "labels": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int64",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "homepage": "https://arxiv.org/abs/1911.12237",[m
+[32m+[m[32m  "license": "CC BY-NC-ND 4.0",[m
+[32m+[m[32m  "size_in_bytes": 13474116,[m
+[32m+[m[32m  "splits": {[m
+[32m+[m[32m    "train": {[m
+[32m+[m[32m      "name": "train",[m
+[32m+[m[32m      "num_bytes": 9479117,[m
+[32m+[m[32m      "num_examples": 14732,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "test": {[m
+[32m+[m[32m      "name": "test",[m
+[32m+[m[32m      "num_bytes": 534480,[m
+[32m+[m[32m      "num_examples": 819,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "validation": {[m
+[32m+[m[32m      "name": "validation",[m
+[32m+[m[32m      "num_bytes": 516419,[m
+[32m+[m[32m      "num_examples": 818,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "version": {[m
+[32m+[m[32m    "version_str": "0.0.0",[m
+[32m+[m[32m    "major": 0,[m
+[32m+[m[32m    "minor": 0,[m
+[32m+[m[32m    "patch": 0[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/test/state.json b/artifacts/data_transformation/samsum_dataset/test/state.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..fed11b6[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/test/state.json[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "_data_files": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m      "filename": "data-00000-of-00001.arrow"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "_fingerprint": "0da838f1d4e09222",[m
+[32m+[m[32m  "_format_columns": null,[m
+[32m+[m[32m  "_format_kwargs": {},[m
+[32m+[m[32m  "_format_type": null,[m
+[32m+[m[32m  "_output_all_columns": false,[m
+[32m+[m[32m  "_split": "test"[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/train/data-00000-of-00001.arrow b/artifacts/data_transformation/samsum_dataset/train/data-00000-of-00001.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1e6cee8[m
+Binary files /dev/null and b/artifacts/data_transformation/samsum_dataset/train/data-00000-of-00001.arrow differ
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/train/dataset_info.json b/artifacts/data_transformation/samsum_dataset/train/dataset_info.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..73067f7[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/train/dataset_info.json[m
+[36m@@ -0,0 +1,78 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "builder_name": "samsum",[m
+[32m+[m[32m  "citation": "\n@article{gliwa2019samsum,\n  title={SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization},\n  author={Gliwa, Bogdan and Mochol, Iwona and Biesek, Maciej and Wawer, Aleksander},\n  journal={arXiv preprint arXiv:1911.12237},\n  year={2019}\n}\n",[m
+[32m+[m[32m  "config_name": "samsum",[m
+[32m+[m[32m  "dataset_size": 10530016,[m
+[32m+[m[32m  "description": "\nSAMSum Corpus contains over 16k chat dialogues with manually annotated\nsummaries.\nThere are two features:\n  - dialogue: text of dialogue.\n  - summary: human written summary of the dialogue.\n  - id: id of a example.\n",[m
+[32m+[m[32m  "download_checksums": {[m
+[32m+[m[32m    "https://huggingface.co/datasets/samsum/resolve/main/data/corpus.7z": {[m
+[32m+[m[32m      "num_bytes": 2944100,[m
+[32m+[m[32m      "checksum": null[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "download_size": 2944100,[m
+[32m+[m[32m  "features": {[m
+[32m+[m[32m    "id": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "dialogue": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "summary": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "input_ids": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int32",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "attention_mask": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int8",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "labels": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int64",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "homepage": "https://arxiv.org/abs/1911.12237",[m
+[32m+[m[32m  "license": "CC BY-NC-ND 4.0",[m
+[32m+[m[32m  "size_in_bytes": 13474116,[m
+[32m+[m[32m  "splits": {[m
+[32m+[m[32m    "train": {[m
+[32m+[m[32m      "name": "train",[m
+[32m+[m[32m      "num_bytes": 9479117,[m
+[32m+[m[32m      "num_examples": 14732,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "test": {[m
+[32m+[m[32m      "name": "test",[m
+[32m+[m[32m      "num_bytes": 534480,[m
+[32m+[m[32m      "num_examples": 819,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "validation": {[m
+[32m+[m[32m      "name": "validation",[m
+[32m+[m[32m      "num_bytes": 516419,[m
+[32m+[m[32m      "num_examples": 818,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "version": {[m
+[32m+[m[32m    "version_str": "0.0.0",[m
+[32m+[m[32m    "major": 0,[m
+[32m+[m[32m    "minor": 0,[m
+[32m+[m[32m    "patch": 0[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/train/state.json b/artifacts/data_transformation/samsum_dataset/train/state.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..145afd7[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/train/state.json[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "_data_files": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m      "filename": "data-00000-of-00001.arrow"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "_fingerprint": "18b3727ad9ec024f",[m
+[32m+[m[32m  "_format_columns": null,[m
+[32m+[m[32m  "_format_kwargs": {},[m
+[32m+[m[32m  "_format_type": null,[m
+[32m+[m[32m  "_output_all_columns": false,[m
+[32m+[m[32m  "_split": "train"[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/validation/data-00000-of-00001.arrow b/artifacts/data_transformation/samsum_dataset/validation/data-00000-of-00001.arrow[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5178a25[m
+Binary files /dev/null and b/artifacts/data_transformation/samsum_dataset/validation/data-00000-of-00001.arrow differ
+[1mdiff --git a/artifacts/data_transformation/samsum_dataset/validation/dataset_info.json b/artifacts/data_transformation/samsum_dataset/validation/dataset_info.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..73067f7[m
+[1m--- /dev/null[m
+[1m+++ b/artifacts/data_transformation/samsum_dataset/validation/dataset_info.json[m
+[36m@@ -0,0 +1,78 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "builder_name": "samsum",[m
+[32m+[m[32m  "citation": "\n@article{gliwa2019samsum,\n  title={SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization},\n  author={Gliwa, Bogdan and Mochol, Iwona and Biesek, Maciej and Wawer, Aleksander},\n  journal={arXiv preprint arXiv:1911.12237},\n  year={2019}\n}\n",[m
+[32m+[m[32m  "config_name": "samsum",[m
+[32m+[m[32m  "dataset_size": 10530016,[m
+[32m+[m[32m  "description": "\nSAMSum Corpus contains over 16k chat dialogues with manually annotated\nsummaries.\nThere are two features:\n  - dialogue: text of dialogue.\n  - summary: human written summary of the dialogue.\n  - id: id of a example.\n",[m
+[32m+[m[32m  "download_checksums": {[m
+[32m+[m[32m    "https://huggingface.co/datasets/samsum/resolve/main/data/corpus.7z": {[m
+[32m+[m[32m      "num_bytes": 2944100,[m
+[32m+[m[32m      "checksum": null[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "download_size": 2944100,[m
+[32m+[m[32m  "features": {[m
+[32m+[m[32m    "id": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "dialogue": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "summary": {[m
+[32m+[m[32m      "dtype": "string",[m
+[32m+[m[32m      "_type": "Value"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "input_ids": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int32",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "attention_mask": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int8",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "labels": {[m
+[32m+[m[32m      "feature": {[m
+[32m+[m[32m        "dtype": "int64",[m
+[32m+[m[32m        "_type": "Value"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "_type": "List"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  },[m
+[32m+[m[32m  "homepage": "https://arxiv.org/abs/1911.12237",[m
+[32m+[m[32m  "license": "CC BY-NC-ND 4.0",[m
+[32m+[m[32m  "size_in_bytes": 13474116,[m
+[32m+[m[32m  "splits": {[m
+[32m+[m[32m    "train": {[m
+[32m+[m[32m      "name": "train",[m
+[32m+[m[32m      "num_bytes": 9479117,[m
+[32m+[m[32m      "num_examples": 14732,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "test": {[m
+[32m+[m[32m      "name": "test",[m
+[32m+[m[32m      "num_bytes": 534480,[m
+[32m+[m[32m      "num_examples": 819,[m
+[32m+[m[32m      "dataset_name": "samsum"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "validation": {[m
+[32m+[m[32m      "name": "validation",[m
+[32m+[m[32m      "num_bytes": 516419,[m
+[32m+[

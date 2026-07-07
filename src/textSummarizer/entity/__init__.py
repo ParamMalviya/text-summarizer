@@ -20,6 +20,17 @@ class DataTransformationConfig:
     root_dir       : Path
     data_path      : Path
     tokenizer_name : str
+
+@dataclass
+class ModelTrainerConfig:
+    root_dir        : Path
+    data_path       : Path
+    model_ckpt      : str
+    num_train_epoch : int
+    warmup_steps    : int
+    batch_size      : int
+    learning_rate   : float
+    weight_decay    : float
     
 
 # A blueprint file. It defines the exact "shape" of settings each component receives — a labeled container with specific named slots, each with a type.
