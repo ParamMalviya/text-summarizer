@@ -15,22 +15,29 @@ class DataValidationConfig:
     ALL_REQUIRED_FILES : list
     data_path          : Path
 
-@dataclass
+@dataclass(frozen=True)
 class DataTransformationConfig:
     root_dir       : Path
     data_path      : Path
     tokenizer_name : str
 
-@dataclass
+@dataclass(frozen=True)
 class ModelTrainerConfig:
     root_dir        : Path
     data_path       : Path
     model_ckpt      : str
-    num_train_epoch : int
+    num_train_epochs : int
     warmup_steps    : int
-    batch_size      : int
-    learning_rate   : float
     weight_decay    : float
+    per_device_train_batch_size : int
+    logging_steps   : int
+    evaluation_strategy : str
+    eval_steps      : int
+    save_steps      : int
+    gradient_accumulation_steps : int
+    fp16: bool
+
+
     
 
 # A blueprint file. It defines the exact "shape" of settings each component receives — a labeled container with specific named slots, each with a type.

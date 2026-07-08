@@ -46,18 +46,23 @@ class ConfigurationManager:
         return data_transformation_config
     
 
-    def get_data_model_trainer_config(self) -> ModelTrainerConfig:
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
         config = self.config['model_trainer']
         params = self.params['TrainingArguments']
         create_directories([config['root_dir']])
-        data_model_trainer_config = ModelTrainerConfig(
+        model_trainer_config = ModelTrainerConfig(
             root_dir           = config['root_dir'],
             data_path          = config['data_path'],
             model_ckpt         = config['model_ckpt'],
-            num_train_epoch    = params['num_train_epochs'],
+            num_train_epochs   = params['num_train_epochs'],
             warmup_steps       = params['warmup_steps'],
-            batch_size         = params['batch_size'],
-            learning_rate      = params['learning_rate'],
-            weight_decay       = params['weight_decay']
+            per_device_train_batch_size = params['per_device_train_batch_size'],
+            logging_steps      = params['logging_steps'],
+            weight_decay       = params['weight_decay'],
+            evaluation_strategy= params['evaluation_strategy'],
+            eval_steps         = params['eval_steps'],
+            save_steps         = params['save_steps'],
+            gradient_accumulation_steps = params['gradient_accumulation_steps'],
+            fp16               = params["fp16"]
         )   
-        return data_model_trainer_config
+        return model_trainer_config

@@ -33,14 +33,16 @@ class DataTransformation:
 
     def convert(self):
         try:
+            save_path = os.path.join(self.config.root_dir, "samsum_dataset")
+            if os.path.exists(save_path):
+                logging.info(f"Transformed dataset already exists at ({save_path}), skipping transformation")
+                return
             dataset_samsum = load_from_disk(self.config.data_path)
             dataset_samsum_transformed = dataset_samsum.map(
                 self.convert_examples_to_features,
                 batched=True
             )
-            dataset_samsum_transformed.save_to_disk(
-                os.path.join(self.config.root_dir, "samsum_dataset")
-            )
+            dataset_samsum_transformed.save_to_disk(save_path)
             logging.info("Data transformation completed successfully")
         except Exception as e:
             raise CustomException(e, sys)
