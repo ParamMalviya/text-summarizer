@@ -31,7 +31,8 @@ list_of_files = [
     f"src/{project_name}/components/model_trainer.py",
     f"src/{project_name}/pipelines/stage_04_model_trainer.py",
     f"src/{project_name}/components/model_evaluation.py",
-    f"src/{project_name}/pipelines/stage_05_model_evaluation.py"
+    f"src/{project_name}/pipelines/stage_05_model_evaluation.py",
+    f"src/{project_name}/pipelines/prediction.py"
 ]
 
 for filepath in list_of_files:
