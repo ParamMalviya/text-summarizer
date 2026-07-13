@@ -19,6 +19,7 @@ class PredictionPipeline:
             pipe = pipeline("summarization", model=self.config.model_path, tokenizer=tokenizer)
 
             output = pipe(text, **gen_kwargs)[0]["summary_text"]
+            output = output.replace("<n>", " ")
 
             logging.info("Prediction generated successfully")
             return output

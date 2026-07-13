@@ -1,3 +1,4 @@
+# C:\Users\param\projects\text-summarizer\src\textSummarizer\components\model_trainer.py
 import os
 import sys
 import torch
@@ -17,7 +18,11 @@ class ModelTrainer:
 
     def train(self):
         try:
-            
+            save_path = os.path.join(self.config.root_dir, "pegasus-samsum-model")
+            if os.path.exists(save_path):
+                logging.info(f"Trained model already exists at ({save_path}), skipping training")
+                return
+
             device = "cuda" if torch.cuda.is_available() else "cpu"
             tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
             model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
