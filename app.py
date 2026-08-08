@@ -2,8 +2,7 @@ import os
 import sys
 import uvicorn
 from fastapi import FastAPI
-from fastapi.responses import Response
-from starlette.responses import RedirectResponse
+from fastapi.responses import Response, RedirectResponse
 
 from textSummarizer.logger import setup_logging, logger
 from textSummarizer.exception import CustomException
@@ -12,6 +11,18 @@ from textSummarizer.pipelines.prediction import PredictionPipeline
 setup_logging()   # wire up logging before the server starts
 
 app = FastAPI()
+
+# load the model once, lazily on the first /predict, then reuse it.
+# building PredictionPipeline loads the ~2.2GB model, so doing it per request
+# would make every call as slow as a cold start. this way only the first hit pays it
+_prediction_pipeline = None
+
+
+def get_prediction_pipeline():
+    global _prediction_pipeline
+    if _prediction_pipeline is None:
+        _prediction_pipeline = PredictionPipeline()
+    return _prediction_pipeline
 
 
 @app.get("/", tags=["authentication"])
@@ -32,8 +43,7 @@ async def training():
 @app.post("/predict")
 async def predict_route(text: str):
     try:
-        obj = PredictionPipeline()
-        summary = obj.predict(text)
+        summary = get_prediction_pipeline().predict(text)
         return summary
     except Exception as e:
         logger.error(str(CustomException(e, sys)))
