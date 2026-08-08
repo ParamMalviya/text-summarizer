@@ -1,8 +1,7 @@
 # C:\Users\param\projects\text-summarizer\src\textSummarizer\components\data_validation.py
 import os
 import sys
-import logging
-from textSummarizer import logger
+
 from textSummarizer.exception import CustomException
 from textSummarizer.entity import DataValidationConfig
 

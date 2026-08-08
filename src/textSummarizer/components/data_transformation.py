@@ -1,8 +1,7 @@
 # C:\Users\param\projects\text-summarizer\src\textSummarizer\components\data_transformation.py
 import os
 import sys
-import logging
-from textSummarizer import logger
+from textSummarizer.logger import logger
 from textSummarizer.exception import CustomException
 from textSummarizer.entity import DataTransformationConfig
 from transformers import AutoTokenizer
@@ -35,7 +34,7 @@ class DataTransformation:
         try:
             save_path = os.path.join(self.config.root_dir, "samsum_dataset")
             if os.path.exists(save_path):
-                logging.info(f"Transformed dataset already exists at ({save_path}), skipping transformation")
+                logger.info(f"Transformed dataset already exists at ({save_path}), skipping transformation")
                 return
             dataset_samsum = load_from_disk(self.config.data_path)
             dataset_samsum_transformed = dataset_samsum.map(
@@ -43,6 +42,6 @@ class DataTransformation:
                 batched=True
             )
             dataset_samsum_transformed.save_to_disk(save_path)
-            logging.info("Data transformation completed successfully")
+            logger.info("Data transformation completed successfully")
         except Exception as e:
             raise CustomException(e, sys) from e

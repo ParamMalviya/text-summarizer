@@ -1,8 +1,7 @@
 import sys
-import logging
 from transformers import AutoTokenizer, pipeline
 
-from textSummarizer import logger
+from textSummarizer.logger import logger
 from textSummarizer.exception import CustomException
 from textSummarizer.config.configuration import ConfigurationManager
 
@@ -21,7 +20,7 @@ class PredictionPipeline:
             output = pipe(text, **gen_kwargs)[0]["summary_text"]
             output = output.replace("<n>", " ")
 
-            logging.info("Prediction generated successfully")
+            logger.info("Prediction generated successfully")
             return output
         except Exception as e:
             raise CustomException(e, sys) from e

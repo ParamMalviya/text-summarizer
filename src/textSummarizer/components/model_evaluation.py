@@ -2,7 +2,6 @@
 import os
 import sys
 import torch
-import logging
 import pandas as pd
 from tqdm import tqdm
 import evaluate
@@ -10,7 +9,7 @@ import evaluate
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from datasets import load_from_disk
 
-from textSummarizer import logger
+from textSummarizer.logger import logger
 from textSummarizer.exception import CustomException
 from textSummarizer.entity import ModelEvaluationConfig
 
@@ -75,6 +74,6 @@ class ModelEvaluation:
             df = pd.DataFrame(rouge_dict, index=["pegasus"])
             df.to_csv(self.config.metric_file_name, index=False)
 
-            logging.info("Model evaluation completed and metrics saved successfully")
+            logger.info("Model evaluation completed and metrics saved successfully")
         except Exception as e:
             raise CustomException(e, sys) from e

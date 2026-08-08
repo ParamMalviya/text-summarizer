@@ -1,10 +1,9 @@
 import os
 from pathlib import Path
 import urllib.request as request
-import logging
 import zipfile
 
-from textSummarizer import logger
+from textSummarizer.logger import logger
 from textSummarizer.utils.common import get_size
 from textSummarizer.entity import DataIngestionConfig
 
@@ -18,9 +17,9 @@ class DataIngestion:
                 filename = self.config.local_data_file,
                 url = self.config.source_URL
             )
-            logging.info(f"{filename} downloaded with the following info: \n{headers}")
+            logger.info(f"{filename} downloaded with the following info: \n{headers}")
         else:
-            logging.info(f"File already exists of size:{get_size(Path(self.config.local_data_file))}")
+            logger.info(f"File already exists of size:{get_size(Path(self.config.local_data_file))}")
 
     def extract_zip_file(self):
         unzip_path = self.config.unzip_dir

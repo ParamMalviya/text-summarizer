@@ -1,9 +1,9 @@
 import os
 import sys
-import logging
 import yaml
 from pathlib import Path
 from ensure import ensure_annotations
+from textSummarizer.logger import logger
 from textSummarizer.exception import CustomException
 
 @ensure_annotations
@@ -23,7 +23,7 @@ def read_yaml(path_to_yaml : Path) -> dict:
             content = yaml.safe_load(yaml_file)
             if content is None:
                 raise ValueError("Yaml file is empty")
-            logging.info(f"yaml file ({path_to_yaml}) is loaded successfully")
+            logger.info(f"yaml file ({path_to_yaml}) is loaded successfully")
             return content
 
     except Exception as e:
@@ -40,7 +40,7 @@ def create_directories(path_to_directories : list, verbose = True):
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
         if verbose:
-            logging.info(f"Created directory at ({path})")
+            logger.info(f"Created directory at ({path})")
 
 @ensure_annotations
 def get_size(path: Path) -> str:

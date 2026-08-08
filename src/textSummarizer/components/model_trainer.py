@@ -2,13 +2,12 @@
 import os
 import sys
 import torch
-import logging
 
 from transformers import TrainingArguments, Trainer
 from transformers import DataCollatorForSeq2Seq, AutoModelForSeq2SeqLM, AutoTokenizer
 from datasets import load_from_disk
 
-from textSummarizer import logger
+from textSummarizer.logger import logger
 from textSummarizer.exception import CustomException
 from textSummarizer.entity import ModelTrainerConfig
 
@@ -20,7 +19,7 @@ class ModelTrainer:
         try:
             save_path = os.path.join(self.config.root_dir, "pegasus-samsum-model")
             if os.path.exists(save_path):
-                logging.info(f"Trained model already exists at ({save_path}), skipping training")
+                logger.info(f"Trained model already exists at ({save_path}), skipping training")
                 return
 
             device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -64,6 +63,6 @@ class ModelTrainer:
             tokenizer.save_pretrained(
                 os.path.join(self.config.root_dir, "tokenizer")
             )
-            logging.info("Model training completed and saved successfully")
+            logger.info("Model training completed and saved successfully")
         except Exception as e:
             raise CustomException(e, sys) from e
