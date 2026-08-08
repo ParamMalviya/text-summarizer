@@ -1,14 +1,17 @@
-ensure
-PyYAML
-ipykernel
-pandas
+ensure==1.0.4
+PyYAML==6.0.3
+ipykernel==7.3.0
+pandas==3.0.4
 transformers[sentencepiece]==4.47.0
-datasets
-accelerate
-# torch must be installed separately due to PyTorch packaging limitations:
+datasets==5.0.0
+accelerate==1.14.0
+tqdm==4.68.3
+# torch I install separately — the CUDA wheels come from PyTorch's own index, not PyPI:
 # pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-rouge_score
-evaluate
-fastapi
-uvicorn
-python-multipart
+# (what's working on my machine: torch 2.5.1+cu121, torchvision 0.20.1+cu121, torchaudio 2.5.1+cu121)
+rouge_score==0.1.2
+evaluate==0.4.6
+fastapi==0.139.0
+uvicorn==0.51.0
+python-multipart==0.0.32
+-e .
