@@ -52,7 +52,7 @@ class ModelEvaluation:
             score = metric.compute()
             return score
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) from e
 
     def evaluate(self):
         try:
@@ -77,4 +77,4 @@ class ModelEvaluation:
 
             logging.info("Model evaluation completed and metrics saved successfully")
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) from e

@@ -66,4 +66,4 @@ class ModelTrainer:
             )
             logging.info("Model training completed and saved successfully")
         except Exception as e:
-            raise CustomException(e,sys)
+            raise CustomException(e, sys) from e

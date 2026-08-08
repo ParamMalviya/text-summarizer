@@ -24,4 +24,4 @@ class PredictionPipeline:
             logging.info("Prediction generated successfully")
             return output
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) from e

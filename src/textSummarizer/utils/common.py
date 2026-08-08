@@ -27,7 +27,7 @@ def read_yaml(path_to_yaml : Path) -> dict:
             return content
 
     except Exception as e:
-        raise CustomException(e,sys)
+        raise CustomException(e, sys) from e
     
 @ensure_annotations
 def create_directories(path_to_directories : list, verbose = True):

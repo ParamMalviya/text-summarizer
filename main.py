@@ -20,7 +20,7 @@ if __name__ == "__main__":
         data_ingestion.main()
         logging.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e
 
     STAGE_NAME = "Data Validation Stage"
     try:
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         data_validation.main()
         logging.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e
 
     STAGE_NAME = "Data Transformation Stage"
     try:
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         data_transformation.main()
         logging.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e
 
     STAGE_NAME = "Model Trainer stage"
     try:
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         model_trainer.main()
         logging.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e
 
     STAGE_NAME = "Model Evaluation stage"
     try:
@@ -56,4 +56,4 @@ if __name__ == "__main__":
         model_evaluation.main()
         logging.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e

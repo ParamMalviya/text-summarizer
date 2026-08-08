@@ -45,4 +45,4 @@ class DataTransformation:
             dataset_samsum_transformed.save_to_disk(save_path)
             logging.info("Data transformation completed successfully")
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) from e

@@ -29,4 +29,4 @@ class DataValidation:
             return validation_status
 
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) from e
