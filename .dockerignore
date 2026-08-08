@@ -1,0 +1,23 @@
+# .dockerignore -- keep these OUT of the build context. leaner + faster builds.
+.venv/
+.git/
+.gitignore
+__pycache__/
+*.pyc
+*.egg-info/
+logs/
+research/
+.vscode/
+
+# big artifacts I don't need in the image -- keep ONLY the trained model
+artifacts/data_ingestion/
+artifacts/data_transformation/
+artifacts/data_validation/
+artifacts/model_evaluation/
+
+# inside model_trainer, keep ONLY the model + tokenizer that /predict loads.
+# HF Trainer also writes big checkpoint-*/ folders (optimizer state) I don't need
+# to serve -- those are what blew the image up to ~10GB.
+artifacts/model_trainer/*
+!artifacts/model_trainer/pegasus-samsum-model
+!artifacts/model_trainer/tokenizer
