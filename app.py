@@ -51,4 +51,6 @@ async def predict_route(text: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    # port 8000 so a local `python app.py` matches what the Streamlit UI calls
+    # (the container doesn't use this line -- start.sh runs uvicorn on 8000 too)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
