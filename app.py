@@ -30,6 +30,13 @@ async def index():
     return RedirectResponse(url="/docs")
 
 
+@app.get("/health")
+async def health():
+    # lets the Streamlit UI ask "is the model actually loaded?" instead of
+    # guessing from its own per-session state (see ui/streamlit_app.py)
+    return {"model_loaded": _prediction_pipeline is not None}
+
+
 @app.get("/train")
 async def training():
     try:
