@@ -1,4 +1,4 @@
-<img width="1276" height="1192" alt="text_summarizer" src="https://github.com/user-attachments/assets/e34ab790-30ff-4538-9bcc-e6b4bf89d0af" />
+<img width="1186" height="1256" alt="text_summarizer" src="https://github.com/user-attachments/assets/2c541b71-957b-434f-bdb8-5bdb99936212" />
 
 # text-summarizer
 
