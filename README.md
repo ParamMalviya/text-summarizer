@@ -1,3 +1,5 @@
+<img width="1276" height="1192" alt="text_summarizer" src="https://github.com/user-attachments/assets/e34ab790-30ff-4538-9bcc-e6b4bf89d0af" />
+
 # text-summarizer
 
 **Fine-tune a transformer to summarize conversations.** This project takes Google's Pegasus model and fine-tunes it on the **SAMSum** dialogue dataset, so it can turn a multi-turn chat into a short summary — wrapped in a clean, config-driven pipeline, served through a Streamlit UI over FastAPI, and deployed serverless on Azure.
