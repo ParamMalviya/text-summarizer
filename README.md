@@ -19,9 +19,9 @@ The base model, `google/pegasus-cnn_dailymail`, is already good at summarizing *
 
 ## What it does
 
-- **Fine-tunes Pegasus on SAMSum** through a five-stage pipeline, each stage a self-contained, config-driven component.
+- **Fine-tunes Pegasus on the full SAMSum training split** through a five-stage pipeline, each stage a self-contained, config-driven component.
 - **Evaluates with ROUGE** against the test set, so the result is a number, not a vibe.
-- **Serves a Streamlit UI** (paste a conversation, get a summary) backed by a **FastAPI** `/predict` endpoint.
+- **Serves a Streamlit UI** (paste a conversation, get a summary) backed by a **FastAPI** `/predict` endpoint, with `/health` reporting whether the model is actually warm.
 - **Runs deployed** on Azure Container Apps as a single Docker image — serverless, scaling to zero when idle.
 
 The five training stages:
@@ -51,7 +51,7 @@ config.yaml + params.yaml
                                                    artifacts/model_trainer/
 
 SERVING (one container, two servers)
-   browser --> Streamlit UI (public :8080) --HTTP--> FastAPI /predict (internal :8000)
+   browser --> Streamlit UI (public :8080) --HTTP--> FastAPI /predict, /health (internal :8000)
                                                           |
                                                           v
                                               fine-tuned Pegasus (loaded once)
@@ -73,7 +73,9 @@ A few deliberate choices, including the tradeoffs — those are the honest part.
 
 **Pegasus fine-tuned, not trained from scratch.** Starting from a model already strong at summarization means the fine-tune only teaches it the *dialogue* domain, which is realistic on a single consumer GPU. The cost: the base model's news habits (e.g. its `<n>` newline token) leak through and get cleaned up at decode time.
 
-**Demo-scale training, on purpose.** One epoch, `fp16`, batch size 1 with gradient accumulation — tuned to *run* on one GPU in reasonable time, not to top a leaderboard. The ROUGE number is a sanity check that fine-tuning moved the needle, not a SOTA claim.
+**Trained on the full SAMSum split, on a single 8GB consumer GPU.** One epoch — the standard recipe for this fine-tune, not a shortcut. Batch size 1 with 16 steps of gradient accumulation and the **Adafactor** optimizer keep the memory footprint inside 8GB. **`bf16` mixed precision, not `fp16`** — an early `fp16` run produced NaN gradients on roughly half its steps; Adafactor's own docs flag `fp16` as under-tested with it, and switching to `bf16` fixed it outright (about 35% slower, but every step actually trains). These are the real constraints of a laptop GPU, not a demo hedge — the ROUGE numbers below are what came out the other end.
+
+**Model-warm status comes from the server, not the browser tab.** `GET /health` reports whether the model is actually loaded in the container; the Streamlit UI checks it before showing a "first run may be slow" notice, instead of relying on `session_state` — which resets per browser tab and would otherwise show that notice to every new visitor even when the model was already warm from someone else's request.
 
 **Model loaded once, not per request.** The FastAPI serving layer builds the summarization pipeline a single time and reuses it, so only a genuine cold start pays the ~2.2 GB load — warm requests are fast.
 
@@ -89,10 +91,10 @@ ROUGE for the fine-tuned Pegasus model, scored on the first **100** dialogues of
 
 | Metric | Score |
 |---|---|
-| ROUGE-1 | 28.37 |
-| ROUGE-2 | 8.22 |
-| ROUGE-L | 21.89 |
-| ROUGE-Lsum | 21.93 |
+| ROUGE-1 | 44.88 |
+| ROUGE-2 | 21.28 |
+| ROUGE-L | 34.75 |
+| ROUGE-Lsum | 34.64 |
 
 _(F-scores ×100. Reproduce with `python main.py` through the evaluation stage; raw values land in `artifacts/model_evaluation/metrics.csv`.)_
 
@@ -124,7 +126,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 python main.py
 ```
 
-This populates `artifacts/` with the dataset, the fine-tuned model, and `metrics.csv`.
+This populates `artifacts/` with the dataset, the fine-tuned model, and `metrics.csv`. On a single 8GB consumer GPU, the training stage takes roughly 2 hours.
 
 **4. Serve** — either run the app directly, or the way it's deployed (via Docker):
 
@@ -154,11 +156,12 @@ Non-secret settings live in `config.yaml` and `params.yaml`:
 | Setting | Value |
 |---|---|
 | Base model | `google/pegasus-cnn_dailymail` |
-| Dataset | SAMSum (dialogue summarization) |
+| Dataset | SAMSum, full training split (14,732 dialogues) |
 | Epochs | 1 |
-| Precision | fp16 |
+| Precision | bf16 |
+| Optimizer | Adafactor |
 | Batch size / grad-accum | 1 / 16 |
-| Generation | beam search (`num_beams=8`, `length_penalty=0.8`, `max_length=128`) |
+| Generation | beam search (`num_beams=8`, `length_penalty=0.8`, `max_length=128`, `no_repeat_ngram_size=3`) |
 
 This project uses **no secrets** — the dataset is a public download and the model comes from the public HuggingFace Hub, so there's no `.env` to configure.
 
@@ -179,7 +182,7 @@ src/textSummarizer/
 config/             config.yaml
 ui/                 streamlit_app.py  (the summarizer UI)
 research/           development notebooks
-app.py              FastAPI serving layer (/train, /predict)
+app.py              FastAPI serving layer (/health, /train, /predict)
 main.py             runs the full training pipeline
 start.sh            launches FastAPI + Streamlit in the container
 Dockerfile          builds the serving image
