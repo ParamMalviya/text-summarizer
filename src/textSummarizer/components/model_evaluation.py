@@ -39,7 +39,7 @@ class ModelEvaluation:
                     attention_mask=inputs["attention_mask"].to(device),
                     length_penalty=0.8, num_beams=8, max_length=128,
                     no_repeat_ngram_size=3, early_stopping=True
-                )
+                )                
 
                 decoded_summaries = [
                     tokenizer.decode(s, skip_special_tokens=True, clean_up_tokenization_spaces=True)
