@@ -35,7 +35,9 @@ class ModelTrainerConfig:
     eval_steps      : int
     save_steps      : int
     gradient_accumulation_steps : int
-    fp16: bool
+    bf16: bool
+    save_total_limit : int
+    optim : str
 
 @dataclass(frozen=True)
 class ModelEvaluationConfig:

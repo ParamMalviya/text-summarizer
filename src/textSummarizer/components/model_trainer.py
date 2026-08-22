@@ -28,8 +28,6 @@ class ModelTrainer:
             seq2seq_data_collator = DataCollatorForSeq2Seq( tokenizer, model=model_pegasus)
 
             dataset_samsum_pt = load_from_disk(self.config.data_path)
-            dataset_samsum_pt["train"] = dataset_samsum_pt["train"].select(range(200))
-            dataset_samsum_pt["validation"] = dataset_samsum_pt["validation"].select(range(50))
 
             trainer_args = TrainingArguments(
                 output_dir = self.config.root_dir,
@@ -42,8 +40,10 @@ class ModelTrainer:
                 eval_strategy=self.config.evaluation_strategy,
                 eval_steps=self.config.eval_steps,
                 save_steps=self.config.save_steps,
+                save_total_limit=self.config.save_total_limit,
+                optim=self.config.optim,
                 gradient_accumulation_steps=self.config.gradient_accumulation_steps,
-                fp16=self.config.fp16
+                bf16=self.config.bf16
                 )
             
             trainer = Trainer(

@@ -63,7 +63,9 @@ class ConfigurationManager:
             eval_steps         = params['eval_steps'],
             save_steps         = params['save_steps'],
             gradient_accumulation_steps = params['gradient_accumulation_steps'],
-            fp16               = params["fp16"]
+            bf16               = params["bf16"],
+            save_total_limit   = params["save_total_limit"],
+            optim              = params["optim"]
         )   
         return model_trainer_config
     
